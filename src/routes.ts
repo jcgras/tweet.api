@@ -7,7 +7,7 @@ import UserDto from "./dtos/user.dto";
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.status(200).send({ status: "online" });
+  res.status(200).send({ status: "offline" });
 });
 router.get("/user", appController.getUsers);
 router.get("/user/:id", appController.getUserData);
