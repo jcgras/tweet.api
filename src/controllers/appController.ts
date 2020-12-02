@@ -86,6 +86,7 @@ export const postTweet = (req: Request, res: Response) => {
   const newTweet = {
     user_name: req.body.user_name,
     tweet: req.body.tweet,
+    hashtag: req.body.hashtag ? req.body.hashtag.split("#").filter((e: any) => { return e != "" }) : []
   };
 
   const data = JSON.parse(
@@ -121,3 +122,21 @@ export const search = (req: Request, res: Response) => {
     .sort();
   return res.status(results.length > 0 ? 200 : 204).send(results);
 };
+
+export const searchByHashtag = (req: Request, res: Response) => {
+  const hashtag: string = req.params.hashtag;
+  const data = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "/../../data/MOCK_DATA.json"), "utf-8")
+  );
+
+  const result = data
+    .filter((h: any) => {
+      if (h.hashtag) {
+        return h.hashtag.some((hash: string) => hash === hashtag)
+      }
+    })
+    .map((t: any) => {return {tweet: t.tweet, author: t.user_name, tags: t.hashtag}})
+    .sort()
+
+  return res.status(200).send(result);
+}

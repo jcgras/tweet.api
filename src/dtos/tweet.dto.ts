@@ -6,4 +6,7 @@ export default class TweetDto {
 
   @IsString()
   public tweet!: string;
+
+  @IsString()
+  public hashtag!:[];
 }

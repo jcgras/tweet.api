@@ -17,5 +17,6 @@ router.get("/tweet", appController.getTweets);
 router.get("/tweet/:id", appController.getTweet);
 router.post("/tweet", validateBodyParams(TweetDto), appController.postTweet);
 router.get("/search", appController.search);
+router.get("/searchByHashtag/:hashtag", appController.searchByHashtag)
 
 export = router;
